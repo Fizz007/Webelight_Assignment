@@ -8,14 +8,16 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { AiFillDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import {removeProduct } from "../redux/cartRedux";
+import {increaseQuantity, removeProduct, removeAll } from "../redux/cartRedux";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
- 
-  const [total, setTotal] = useState();
   const cartt = useSelector(state => state.cart);
+ const navigate = useNavigate()
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
 
@@ -26,6 +28,14 @@ function Cart() {
       setQuantity(quantity + 1);
     }
   };
+
+  const handleCheckout = ()=> {
+    dispatch(removeAll())
+    toast.success("your order has been placed", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    navigate('/')
+  }
   return (
     <Container className="home" fluid>
       <div className="productContainer">
@@ -45,9 +55,11 @@ function Cart() {
                 </Col>
                 <Col md={2}>
                   
-                  <p>{quantity}</p>
+                  <p>{item.quantity}</p>
                  <div>
-                   <button onClick={()=>  handleQuantity("inc")}>+</button>
+                   <button onClick={()=>  {
+                    increaseQuantity((item._id))
+                   }}>+</button>
                     <button onClick={()=>  handleQuantity("dec")}>-</button>
                  </div>
                 </Col>
@@ -70,7 +82,7 @@ function Cart() {
         <span style={{ fontWeight: 700, fontSize: 20 }} className="p-2">
           Total :₹ {cartt.totalPrice * quantity}
         </span>
-        <Button type="button" >
+        <Button type="button" onClick={handleCheckout}>
           Proceed to Checkout
         </Button>
       </Container>

@@ -8,11 +8,12 @@ import { useNavigate } from "react-router-dom";
 function SingleProduct({ item }) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  // const {
-  //   state: { cart },
-  //   dispatch,
-  // } = CartState();
   const [show, setShow] = useState(false);
+
+  var qty = "quantity";
+  var val = 1;
+  item[qty] = val;
+  
   function handleClose() {
     setShow(false);
   }
@@ -52,13 +53,12 @@ function SingleProduct({ item }) {
         </Modal.Body>
         <Modal.Footer>
         <Button variant="primary" onClick={()=> {
-          console.log(item)
           dispatch(addProduct(item))
           }}>
             ADD
           </Button>
-          <Button variant="secondary" onClick={()=>navigate('/cart')}>
-            cart
+          <Button variant="secondary" onClick={handleClose}>
+            Close
           </Button>
         </Modal.Footer>
        

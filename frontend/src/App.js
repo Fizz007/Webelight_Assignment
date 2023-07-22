@@ -23,6 +23,18 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       </div>
     </BrowserRouter>
   );
