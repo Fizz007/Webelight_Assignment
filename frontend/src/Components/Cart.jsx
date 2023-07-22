@@ -8,64 +8,56 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
-import { CartState } from "../Contexts/Context";
 import { AiFillDelete } from "react-icons/ai";
-import Rating from "./Rating";
-function Cart() {
-  const {
-    state: { cart },
-    dispatch,
-  } = CartState();
-  const [total, setTotal] = useState();
+import { useDispatch, useSelector } from "react-redux";
+import {removeProduct } from "../redux/cartRedux";
 
-  useEffect(() => {
-    setTotal(
-      cart.reduce((accu, curr) => accu + Number(curr.price) * curr.qty, 0),
-    );
-  }, [cart]);
+function Cart() {
+ 
+  const [total, setTotal] = useState();
+  const cartt = useSelector(state => state.cart);
+  const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
   return (
     <Container className="home" fluid>
       <div className="productContainer">
         <ListGroup>
-          {cart.map((item) => (
-            <ListGroup.Item key={item.id}>
+          {cartt.products?.map((item) => (
+            <ListGroup.Item key={item._id}>
               <Row>
                 <Col md={2}>
-                  <Image src={item.image} alt={item.name} fluid rounded />
+                  <Image src={item.img} alt={item.name} fluid rounded />
                 </Col>
                 <Col md={2}>
                   <span>{item.name}</span>
                 </Col>
                 <Col md={2}>₹ {item.price}</Col>
                 <Col md={2}>
-                  <Rating rating={item.ratings} />
+                 
                 </Col>
                 <Col md={2}>
-                  <Form.Control
-                    as="select"
-                    value={item.qty}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "CHANGE_CART_QTY",
-                        payload: { id: item.id, qty: e.target.value },
-                      })
-                    }
-                  >
-                    {[...Array(item.inStock).keys()].map((x) => (
-                      <option key={x + 1}>{x + 1}</option>
-                    ))}
-                  </Form.Control>
-                  <p>Max Quantity Available</p>
+                  
+                  <p>{quantity}</p>
+                 <div>
+                   <button onClick={()=>  handleQuantity("inc")}>+</button>
+                    <button onClick={()=>  handleQuantity("dec")}>-</button>
+                 </div>
                 </Col>
                 <Col md={2}>
                   <Button
                     type="button"
                     variant="light"
-                    onClick={() =>
-                      dispatch({ type: "REMOVE_FROM_CART", payload: item })
-                    }
+                    
                   >
-                    <AiFillDelete fontSize="20px" />
+                    <AiFillDelete fontSize="20px" onClick={()=> dispatch(removeProduct(item._id))}/>
                   </Button>
                 </Col>
               </Row>
@@ -74,11 +66,11 @@ function Cart() {
         </ListGroup>
       </div>
       <Container className="filters summary d-flex justify-content-end align-items-center py-5">
-        <span className="title p-2">Sub-Total : {cart.length} items</span>
+    
         <span style={{ fontWeight: 700, fontSize: 20 }} className="p-2">
-          Total :₹ {total}{" "}
+          Total :₹ {cartt.totalPrice * quantity}
         </span>
-        <Button type="button" disabled={cart.length === 0}>
+        <Button type="button" >
           Proceed to Checkout
         </Button>
       </Container>

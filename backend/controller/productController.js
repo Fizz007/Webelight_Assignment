@@ -3,7 +3,7 @@ const Product = require("../model/product");
 //GET
 const getProduct = async (req, res) => {
   try {
-    const findProduct = await Product.find();
+    const findProduct = await Product.find({});
 
     res.status(200).json({ message: "products shown", product: findProduct });
   } catch (err) {
@@ -13,30 +13,30 @@ const getProduct = async (req, res) => {
 
 //CREATE
 const createProduct = async(req, res) =>{
-    const newProduct = new Product(req.body);
-
-    try{
-     const savedProduct = await newProduct.save();
-     res.status(200).json(savedProduct);
-    }catch(err){
-        res.status(500).json(err)
+   
+    try {
+      const savedProduct = Product.create(req.body);
+      
+      res.status(200).json({message:"product added", product:savedProduct});
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
 }
 
 
 //UPDATE
 const updateProduct = async (req, res) => {
+   
+    const { id } = req.params;
+    console.log("get body", req.body);
+    console.log("get id", id);
+  
     try {
-      const updatedProduct = await User.findByIdAndUpdate(
-        req.params.id,
-        {
-          $set: req.body,
-        },
-        { new: true }
-      );
-      res.status(200).json(updatedProduct);
-    } catch (err) {
-      res.status(500).json(err);
+      const updatedProd = await User.findByIdAndUpdate(id, req.body, {new:true});
+     
+      res.status(200).json({message:"product updated", product: updatedProd});
+    } catch (error) {
+      res.send(error);
     }
   }
 
@@ -45,7 +45,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async(req, res) => {
   try{
   await Product.findByIdAndDelete(req.params.id)
-  res.status(200).json("Product has been deleted... ")
+  res.status(200).json({message:"Product has been deleted... "})
   }catch(err){
     res.json(500).json(err)
   }

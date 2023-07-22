@@ -25,22 +25,22 @@ export default function App() {
         </div>
 
         <div className="">
-          <Link href="/" className="me-4 text-reset">
+          <Link to="/" className="me-4 text-reset">
             <TiSocialFacebook fab icon="facebook-f" />
           </Link>
-          <Link href="/" className="me-4 text-reset">
+          <Link to="/" className="me-4 text-reset">
             <TiSocialTwitter fab icon="twitter" />
           </Link>
-          <Link href="/" className="me-4 text-reset">
+          <Link to="/" className="me-4 text-reset">
             <TiSocialGooglePlus fab icon="google" />
           </Link>
-          <Link href="/" className="me-4 text-reset">
+          <Link to="/" className="me-4 text-reset">
             <TiSocialInstagram fab icon="instagram" />
           </Link>
-          <Link href="/" className="me-4 text-reset">
+          <Link to="/" className="me-4 text-reset">
             <TiSocialLinkedin fab icon="linkedin" />
           </Link>
-          <Link href="/" className="me-4 text-reset">
+          <Link to="/" className="me-4 text-reset">
             <TiSocialGithub fab icon="github" />
           </Link>
         </div>
@@ -52,7 +52,7 @@ export default function App() {
             <Col md="3" lg="4" xl="3" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">
                 <TiShoppingCart icon="gem" className="me-3" />
-                Myntra India
+                Zappos India
               </h6>
               <p>
                 This is an online retail brand in India, which sells various
@@ -63,22 +63,22 @@ export default function App() {
             <Col md="2" lg="2" xl="2" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Products</h6>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   Shirts
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   Kurtis
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   Trousers
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   T-Shirts
                 </a>
               </p>
@@ -87,22 +87,22 @@ export default function App() {
             <Col md="3" lg="2" xl="2" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   Pricing
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   Settings
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   Orders
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <a to="#!" className="text-reset">
                   *TnC
                 </a>
               </p>
@@ -116,7 +116,7 @@ export default function App() {
               </p>
               <p>
                 <MdOutlineEmail icon="envelope" className="me-3" />
-                support@myntra.com
+                support@zappos.com
               </p>
               <p>
                 <MdCall icon="phone" className="me-3" /> +91-8887776661
@@ -133,7 +133,7 @@ export default function App() {
         className="text-center p-4"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
-        © MYNTRA 2023 Copyright
+        © ZAPPOS 2023 Copyright
       </div>
     </ModalFooter>
   );

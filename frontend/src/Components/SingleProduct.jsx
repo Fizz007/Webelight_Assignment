@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
 import { CartState } from "../Contexts/Context";
-import Rating from "./Rating";
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function SingleProduct({ item }) {
-  const {
-    state: { cart },
-    dispatch,
-  } = CartState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  // const {
+  //   state: { cart },
+  //   dispatch,
+  // } = CartState();
   const [show, setShow] = useState(false);
   function handleClose() {
     setShow(false);
@@ -20,20 +24,22 @@ function SingleProduct({ item }) {
     <>
       <div className="products p-2" onClick={handleShow}>
         <Card>
-          <Card.Img variant="top" src={item.image} alt={item.name} />
+          <Card.Img variant="top" src={item.img} style={{height:'300px'}} alt={item.title} />
           <Card.Body>
-            <Card.Title>{item.name}</Card.Title>
+            <Card.Title>{item.title}</Card.Title>
+            <Card.Subtitle style={{ paddingBottom: 10 }}>{item.category}</Card.Subtitle>
             <Card.Subtitle style={{ paddingBottom: 10 }}>
-              <span>₹ {item.price.split(".")[0]}</span>
+              <span>₹ {item.price}</span>
              
               {item.fastDelivery ? (
                 <div className="deliveryText">Fast Delivery 1-2 Days</div>
               ) : (
                 <div className="deliveryText">4-5 Days Delivery</div>
               )}
-              <Rating rating={item.ratings} />
+              
             </Card.Subtitle>
           </Card.Body>
+          
         </Card>
       </div>
       <Modal show={show} onHide={handleClose}>
@@ -41,37 +47,21 @@ function SingleProduct({ item }) {
           <Modal.Title>{item.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Card.Img variant="top" src={item.image} alt={item.name} />
-          {/* <div className="buttonSizes">
-            <p>Size Chart :</p>
-            <Button className="mx-2">S</Button>
-            <Button className="mx-2">M</Button>
-            <Button className="mx-2">L</Button>
-            <Button className="mx-2">XL</Button>
-          </div> */}
+          <Card.Img variant="top" src={item.img} alt={item.name} />
+          
         </Modal.Body>
         <Modal.Footer>
-          {cart.some((product) => product.id === item.id) ? (
-            <Button
-              variant="danger"
-              onClick={() =>
-                dispatch({ type: "REMOVE_FROM_CART", payload: item })
-              }
-            >
-              Remove from Cart
-            </Button>
-          ) : (
-            <Button
-              onClick={() => dispatch({ type: "ADD_TO_CART", payload: item })}
-              disabled={!item.inStock}
-            >
-              ADD TO CART
-            </Button>
-          )}
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+        <Button variant="primary" onClick={()=> {
+          console.log(item)
+          dispatch(addProduct(item))
+          }}>
+            ADD
+          </Button>
+          <Button variant="secondary" onClick={()=>navigate('/cart')}>
+            cart
           </Button>
         </Modal.Footer>
+       
       </Modal>
     </>
   );

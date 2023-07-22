@@ -7,7 +7,7 @@ app.use(express.json())
 const productRoutes = require('./routes/productRoutes')
 const cartRoutes = require('./routes/cartRoutes')
 const orderRoutes = require('./routes/orderRoutes')
-app.use('/product', productRoutes)
+app.use('/products', productRoutes)
 app.use('/cart', cartRoutes)
 app.use('/order', orderRoutes)
 

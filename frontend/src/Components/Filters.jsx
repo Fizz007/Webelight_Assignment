@@ -1,16 +1,15 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { CartState } from "../Contexts/Context";
-import Rating from "./Rating";
 
 function Filters() {
-  const {
-    productDispatch,
-    productState: { byStock, byFastDelivery, byRating, sort },
-  } = CartState();
+  // const {
+  //   productDispatch,
+  //   productState: { byStock, byFastDelivery, byRating, sort },
+  // } = CartState();
   return (
     <div className="filters p-2">
-      <p className="blackText">Sort By:</p>
+      {/* <p className="blackText">Sort By:</p>
       <span>
         <Form.Check
           inline
@@ -59,26 +58,17 @@ function Filters() {
           checked={byFastDelivery}
         />
       </span>
-      <span className=" mx-1">
+      {/* <span className=" mx-1">
         <label style={{ paddingRight: 10 }}>Rating: </label>
-        <Rating
-          rating={byRating}
-          onClick={(i) =>
-            productDispatch({
-              type: "FILTER_BY_RATING",
-              payload: i + 1,
-            })
-          }
-          style={{ cursor: "pointer" }}
-        />
-      </span>
-      <Button
+       
+      </span> */}
+      {/* <Button
         className=" mx-1"
         variant="light"
         onClick={() => productDispatch({ type: "CLEAR_FILTERS" })}
       >
         Clear Filters
-      </Button>
+      </Button> */}
     </div>
   );
 }

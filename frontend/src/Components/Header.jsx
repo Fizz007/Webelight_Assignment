@@ -11,16 +11,15 @@ import {
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
-import { CartState } from "../Contexts/Context";
-import myntraLogo from "../assets/myntraLogo.png";
 import "./styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { removeProduct } from "../redux/cartRedux";
 
 function Header() {
-  const {
-    state: { cart },
-    dispatch,
-    productDispatch,
-  } = CartState();
+  const cartt = useSelector(state => state.cart);
+ const dispatch = useDispatch()
+ 
+  
   return (
     <Navbar
       variant="dark"
@@ -31,7 +30,7 @@ function Header() {
         <Navbar.Brand>
           <Link to="/">
             <img
-              src={myntraLogo}
+              src="https://m.media-amazon.com/images/G/01/zappos/melody/zapposPBS._CB1509642213_.svg"
               alt="logo"
               style={{ height: "70px", width: "190px" }}
             />
@@ -44,28 +43,28 @@ function Header() {
               placeholder="Search for a Product..."
               className="m-auto"
               aria-label="Search"
-              onChange={(e) => {
-                productDispatch({
-                  type: "FILTER_BY_SEARCH",
-                  payload: e.target.value,
-                });
-              }}
+              // onChange={(e) => {
+              //   productDispatch({
+              //     type: "FILTER_BY_SEARCH",
+              //     payload: e.target.value,
+              //   });
+              // }}
             />
           </Navbar.Text>
         )}
         <Nav>
-          <Dropdown>
+          <Dropdown >
             <Dropdown.Toggle variant="primary">
-              <FaShoppingCart color="white" fontSize="25px" />
-              <Badge>{cart.length}</Badge>
+              <FaShoppingCart color="white" fontSize="25px"/>
+              <Badge>{cartt.totalQuantity ? cartt.totalQuantity : 0}</Badge>
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ minWidth: 150 }}>
-              {cart.length > 0 ? (
+              {cartt.totalQuantity > 0 ? (
                 <>
-                  {cart.map((item) => (
-                    <span className="cartItem d-flex" key={item.id}>
+                  {cartt.products?.map((item) => (
+                    <span className="cartItem d-flex" key={item._id}>
                       <img
-                        src={item.image}
+                        src={item.img}
                         style={{ width: 50, height: 50, borderRadius: "50%" }}
                         className="cartItemImg m-1"
                         alt={item.name}
@@ -73,14 +72,14 @@ function Header() {
                       <div className="cartItemDetail p-1">
                         <span>{item.name}</span>
                         <span className="m-1 bold">
-                          ₹{item.price.split(".")[0]}
+                          ₹{item.price}
                         </span>
                       </div>
-                      <AiFillDelete
-                        fontSize="50px"
+                      <AiFillDelete                        
+                        size="30"
                         style={{ cursor: "pointer" }}
                         onClick={() =>
-                          dispatch({ type: "REMOVE_FROM_CART", payload: item })
+                          dispatch(removeProduct(item._id))
                         }
                       />
                     </span>
