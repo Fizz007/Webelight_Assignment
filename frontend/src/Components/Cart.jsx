@@ -21,16 +21,7 @@ function Cart() {
   const item = cartt.products;
   console.log(item)
  const navigate = useNavigate()
-  const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(1);
-
-  const handleQuantity = (type) => {
-    if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
+  const dispatch = useDispatch(); 
 
   const handleCheckout = ()=> {
     dispatch(removeAll())

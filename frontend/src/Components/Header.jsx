@@ -41,9 +41,9 @@ function Header() {
     <Navbar
       variant="dark"
       style={{ height: 80 }}
-      classNameNameNameName="lightNavBg d-flex m-auto bg-light"
+      className="lightNavBg d-flex m-auto bg-light"
     >
-      <Container classNameNameNameName="d-flex justify-content-between">
+      <Container className="d-flex justify-content-between">
         <Navbar.Brand>
           <Link to="/">
             <img
@@ -54,11 +54,11 @@ function Header() {
           </Link>
         </Navbar.Brand>
         {useLocation().pathname.split("/")[1] !== "cart" && (
-          <Navbar.Text classNameNameNameName="search">
+          <Navbar.Text className="search">
             <FormControl
               type="search"
               placeholder="Search for a Product..."
-              classNameNameNameName="m-auto"
+              className="m-auto"
               aria-label="Search"
             />
           </Navbar.Text>
@@ -93,7 +93,7 @@ function Header() {
                   ))}
                   <Link to="/cart">
                     <Button style={{ width: "90%", margin: "0 10px" }}>
-                      Go to Cart
+                    Go To Cart
                     </Button>
                   </Link>
                 </>
