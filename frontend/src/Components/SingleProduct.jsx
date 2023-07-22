@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
-import { CartState } from "../Contexts/Context";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,7 @@ function SingleProduct({ item }) {
   var qty = "quantity";
   var val = 1;
   item[qty] = val;
-  
+
   function handleClose() {
     setShow(false);
   }
@@ -30,13 +29,8 @@ function SingleProduct({ item }) {
             <Card.Title>{item.title}</Card.Title>
             <Card.Subtitle style={{ paddingBottom: 10 }}>{item.category}</Card.Subtitle>
             <Card.Subtitle style={{ paddingBottom: 10 }}>
-              <span>₹ {item.price}</span>
+              <span>₹ {item.price}</span>    
              
-              {item.fastDelivery ? (
-                <div className="deliveryText">Fast Delivery 1-2 Days</div>
-              ) : (
-                <div className="deliveryText">4-5 Days Delivery</div>
-              )}
               
             </Card.Subtitle>
           </Card.Body>

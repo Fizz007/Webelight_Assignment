@@ -41,9 +41,9 @@ function Header() {
     <Navbar
       variant="dark"
       style={{ height: 80 }}
-      classNameNameName="lightNavBg d-flex m-auto bg-light"
+      classNameNameNameName="lightNavBg d-flex m-auto bg-light"
     >
-      <Container classNameNameName="d-flex justify-content-between">
+      <Container classNameNameNameName="d-flex justify-content-between">
         <Navbar.Brand>
           <Link to="/">
             <img
@@ -54,11 +54,11 @@ function Header() {
           </Link>
         </Navbar.Brand>
         {useLocation().pathname.split("/")[1] !== "cart" && (
-          <Navbar.Text classNameNameName="search">
+          <Navbar.Text classNameNameNameName="search">
             <FormControl
               type="search"
               placeholder="Search for a Product..."
-              classNameNameName="m-auto"
+              classNameNameNameName="m-auto"
               aria-label="Search"
             />
           </Navbar.Text>
@@ -69,27 +69,27 @@ function Header() {
               <FaShoppingCart color="white" fontSize="25px" />
               <Badge>{cartt.totalQuantity ? cartt.totalQuantity : 0}</Badge>
             </Dropdown.Toggle>
-            <Dropdown.Menu style={{ minWidth: 150 }}>
+            <Dropdown.Menu style={{ minWidth: '150' }}>
               {cartt.totalQuantity > 0 ? (
                 <>
                   {cartt.products?.map((item) => (
-                    <span classNameNameName="cartItem d-flex" key={item._id}>
+                    <span className="cartItem d-flex align-items-center" key={item._id}>
                       <img
                         src={item.img}
                         style={{ width: 50, height: 50, borderRadius: "50%" }}
-                        classNameNameName="cartItemImg m-1"
+                        className="cartItemImg m-1"
                         alt={item.name}
                       />
-                      <div classNameNameName="cartItemDetail p-1">
+                      <div className="cartItemDetail p-1">
                         <span>{item.name}</span>
-                        <span classNameNameName="m-1 bold">₹{item.price}</span>
+                        <span className="m-1 bold">₹{item.price}</span>
                       </div>
                       <AiFillDelete
                         size="30"
                         style={{ cursor: "pointer" }}
                         onClick={() => dispatch(removeProduct(item._id))}
                       />
-                    </span>
+                    </span>                                  
                   ))}
                   <Link to="/cart">
                     <Button style={{ width: "90%", margin: "0 10px" }}>

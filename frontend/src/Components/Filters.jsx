@@ -1,12 +1,9 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-import { CartState } from "../Contexts/Context";
+
 
 function Filters() {
-  // const {
-  //   productDispatch,
-  //   productState: { byStock, byFastDelivery, byRating, sort },
-  // } = CartState();
+ 
   return (
     <div className="filters p-2">
       {/* <p className="blackText">Sort By:</p>

@@ -26,33 +26,45 @@ const cartSlice = createSlice({
 
     removeProduct: (state, action) => {
       const productId = action.payload;
-      const existingProduct = state.products.filter(
-        (item) => item._id !== productId
-      );
-        return existingProduct;
+      state.products = state.products.filter((item) => item._id !== productId);
+      state.totalQuantity--;
+      state.totalPrice -= state.products.price;
     },
 
     increaseQuantity: (state, action) => {
       const productId = action.payload;
-      const existingProduct = state.products.find((item) => item._id === productId);
+    //   const existingProduct = state.products.find((item) => item._id === productId);
 
-      if (existingProduct) {
-        existingProduct.quantity++;
-        state.totalQuantity++;
-        state.totalPrice += existingProduct.price;
-      }
+    //   if (existingProduct) {
+    //     existingProduct.quantity++;
+    //     state.totalQuantity++;
+    //     state.totalPrice += existingProduct.price;
+    //   }
+
+      const cartItem = state.products.find((item) => item._id === productId);
+      cartItem.quantity = cartItem.quantity + 1;
     },
 
     decreaseQuantity: (state, action) => {
       const productId = action.payload;
-      const existingProduct = state.products.find(
-        (item) => item.id === productId
-      );
+    //   const existingProduct = state.products.find(
+    //     (item) => item.id === productId
+    //   );
 
-      if (existingProduct && existingProduct.quantity > 1) {
-        existingProduct.quantity--;
+    //   if (existingProduct && existingProduct.quantity > 1) {
+    //     existingProduct.quantity--;
+    //     state.totalQuantity--;
+    //     state.totalPrice -= existingProduct.price;
+    //   }
+
+    const cartItem = state.products.find((item) => item._id === productId);
+      
+      if(cartItem.quantity < 1){
+        state.products = state.products.filter((item) => item._id !== productId);
         state.totalQuantity--;
-        state.totalPrice -= existingProduct.price;
+        state.totalPrice -= state.products.price;
+      }else {
+        cartItem.quantity = cartItem.quantity - 1;
       }
     },
 
