@@ -117,7 +117,9 @@ function Header() {
             <li>
               <Link className="dropdown-item" to="#" onClick={handleUser}>
                 {user ? "Logout" : "Login"}
-                <FcGoogle size={25} />
+                <span className="mx-2">
+                  <FcGoogle size={25} />
+                </span>
               </Link>
             </li>
           </ul>
