@@ -5,6 +5,7 @@ import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { baseUrl } from "../config/BaseUrl";
 
 function Home() {
   const [prod, setProd] = useState([]);
@@ -15,7 +16,7 @@ function Home() {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5400/products");
+      const res = await axios.get(`${baseUrl}/products`);
       console.log(res.data.product);
       setProd(res.data.product);
       setNewprod(res.data.product);
