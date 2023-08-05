@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import {
   Button,
   Col,
@@ -14,14 +14,25 @@ import { AiFillDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import {increaseQuantity, removeProduct, removeAll, decreaseQuantity } from "../redux/cartRedux";
 import { useNavigate } from "react-router-dom";
+import StripeCheckout from 'react-stripe-checkout';
 
 function Cart() {
+  const [stripeToken, setStripeToken] = useState(null);
+     
+ const navigate = useNavigate()
+ const dispatch = useDispatch(); 
   const cartt = useSelector(state => state.cart);
   console.log(cartt)
-  const item = cartt.products;
-  console.log(item)
- const navigate = useNavigate()
-  const dispatch = useDispatch(); 
+  const KEY = process.env.REACT_APP_STRIPE;
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+  console.log(stripeToken)
+
+  const total = cartt.products.reduce((total, item) => {
+    return (total + (item.price) * item.quantity );
+  }, 0); 
 
   const handleCheckout = ()=> {
     dispatch(removeAll())
@@ -30,10 +41,6 @@ function Cart() {
     });
     navigate('/')
   }
-
-  const total = cartt.products.reduce((total, item) => {
-    return (total + (item.price) * item.quantity );
-  }, 0);
 
   return (
     <Container className="home" fluid>
@@ -81,9 +88,21 @@ function Cart() {
         <span style={{ fontWeight: 700, fontSize: 20 }} className="p-2">
           Total :₹ {total}
         </span>
-        <Button type="button" onClick={handleCheckout}>
+        
+          <StripeCheckout
+              name="Webelight Shop"
+              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${total}`}
+              amount={total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+             <Button type="button" onClick={handleCheckout}>
           Proceed to Checkout
         </Button>
+            </StripeCheckout>
       </Container>
     </Container>
   );
