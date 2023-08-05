@@ -36,7 +36,7 @@ function Cart() {
 
   const handleCheckout = ()=> {
     dispatch(removeAll())
-    toast.success("your order has been placed", {
+    toast.success("Please pay", {
       position: toast.POSITION.TOP_RIGHT,
     });
     navigate('/')
