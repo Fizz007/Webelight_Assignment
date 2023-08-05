@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import SingleProduct from "./SingleProduct";
-import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { baseUrl } from "../config/BaseUrl";
+import Loader from "./Loader";
 
 function Home() {
   const [prod, setProd] = useState([]);
@@ -13,6 +13,7 @@ function Home() {
   const [user] = useAuthState(auth);
   const [selectedoption, setselectedoption] = useState("");
   const [sortOrder, setSortOrder] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   const getProducts = async () => {
     try {
@@ -20,6 +21,7 @@ function Home() {
       console.log(res.data.product);
       setProd(res.data.product);
       setNewprod(res.data.product);
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -124,14 +126,14 @@ function Home() {
       {user ? (
         <Container classNameName="productContainer" fluid>
           <Row xs={1} md={3} lg={4}>
-            {prod &&
+            {prod.length > 0 ? 
               prod.map((item) => {
                 return (
                   <Col>
                     <SingleProduct item={item} key={item._id} />
                   </Col>
-                );
-              })}
+                )
+              }) : <Loader/>}
           </Row>
         </Container>
       ) : (
