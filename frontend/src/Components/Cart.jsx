@@ -97,7 +97,7 @@ function Cart() {
               description={`Your total is $${total}`}
               amount={total * 100}
               token={onToken}
-              stripeKey={'pk_test_51NbRyJSDPekuvSgtc9qnn3y3Dj9NBZj7uCb4XHhbyZSNa8vAaJ38ATzBXKt7ErYfiStZpz6TJ5IawzNP7SkUfgEZ0051eJ9M2T'}
+              stripeKey={KEY}
             >
              <Button type="button" onClick={handleCheckout}>
           Proceed to Checkout
